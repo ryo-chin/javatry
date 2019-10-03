@@ -15,10 +15,13 @@
  */
 package org.docksidestage.javatry.basic;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.docksidestage.unit.PlainTestCase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The test of if-for. <br>
@@ -195,18 +198,22 @@ public class Step02IfForTest extends PlainTestCase {
         }
         log(sea); // should be same as before-fix
 
-        // TODO hakiba リストにgaが含む要素が存在しないケースだと結果が変わってしまうような？ by jflute (2019/10/03)
+        // TODO done hakiba リストにgaが含む要素が存在しないケースだと結果が変わってしまうような？ by jflute (2019/10/03)
+        // COMMENT ずるい気もしますがMapなど使い対応してみました by hakiba
         // forEach() Version
-        StringBuilder sb = new StringBuilder();
+        LinkedList<String> targetStageList = new LinkedList<>();
+        String breakKeyword = "ga";
+        Map<String, String> breakKeywordAndStageMap = new HashMap<>();
         stageList.forEach(stage -> {
-            if (stage.startsWith("br")) {
+            if (stage.startsWith("br") || breakKeywordAndStageMap.get(breakKeyword) != null) {
                 return;
             }
-            if (stage.contains("ga") && sb.length() == 0) {
-                sb.append(stage);
+            targetStageList.add(stage);
+            if (stage.contains(breakKeyword)) {
+                breakKeywordAndStageMap.put(breakKeyword, stage);
             }
         });
-        log(sb.toString());
+        log(targetStageList.getLast());
     }
 
     /**
