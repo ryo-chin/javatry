@@ -15,6 +15,7 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
+// TODO hakiba javadocよろしく by jflute (2019/10/03)
 /**
  * @author jflute
  */
@@ -31,6 +32,7 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    // TODO hakiba これ、oneDayの方をquantityのままにするのが迷いどころじゃない？ by jflute (2019/10/03)
     private int quantity = MAX_QUANTITY;
     private int twoDayQuantity = TWO_DAY_MAX_QUANTITY;
     private Integer salesProceeds;
@@ -45,6 +47,7 @@ public class TicketBooth {
     //                                                                          Buy Ticket
     //                                                                          ==========
     public void buyOneDayPassport(int handedMoney) {
+        // TODO hakiba 修行++: はちゃめちゃでもいいから、この4行をbuyTwoDayPassport()と再利用してみよう by jflute (2019/10/03)
         checkSoldOut(quantity);
         checkSufficient(handedMoney, ONE_DAY_PRICE);
         --quantity;

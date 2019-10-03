@@ -15,10 +15,10 @@
  */
 package org.docksidestage.javatry.basic;
 
-import org.docksidestage.unit.PlainTestCase;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.docksidestage.unit.PlainTestCase;
 
 /**
  * The test of if-for. <br>
@@ -195,6 +195,7 @@ public class Step02IfForTest extends PlainTestCase {
         }
         log(sea); // should be same as before-fix
 
+        // TODO hakiba リストにgaが含む要素が存在しないケースだと結果が変わってしまうような？ by jflute (2019/10/03)
         // forEach() Version
         StringBuilder sb = new StringBuilder();
         stageList.forEach(stage -> {
