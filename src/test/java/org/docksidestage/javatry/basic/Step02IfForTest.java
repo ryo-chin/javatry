@@ -198,8 +198,9 @@ public class Step02IfForTest extends PlainTestCase {
         }
         log(sea); // should be same as before-fix
 
-        // TODO done hakiba リストにgaが含む要素が存在しないケースだと結果が変わってしまうような？ by jflute (2019/10/03)
+        // done hakiba リストにgaが含む要素が存在しないケースだと結果が変わってしまうような？ by jflute (2019/10/03)
         // COMMENT ずるい気もしますがMapなど使い対応してみました by hakiba
+        // TODO hakiba まあ実現することがまず大事。Setでいいんじゃない？valueはダミーでしょ by jflute (2019/10/03)
         // forEach() Version
         LinkedList<String> targetStageList = new LinkedList<>();
         String breakKeyword = "ga";
