@@ -33,7 +33,7 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO done hakiba これ、oneDayの方をquantityのままにするのが迷いどころじゃない？ by jflute (2019/10/03)
+    // done hakiba これ、oneDayの方をquantityのままにするのが迷いどころじゃない？ by jflute (2019/10/03)
     // 別々のQuantityとして管理しようかなと思っているので一旦変数名を変えます。 by hakiba
     private int oneDayQuantity = ONE_DAY_MAX_QUANTITY;
     private int twoDayQuantity = TWO_DAY_MAX_QUANTITY;
