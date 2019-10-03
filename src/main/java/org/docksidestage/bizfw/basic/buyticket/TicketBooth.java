@@ -46,20 +46,21 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                          Buy Ticket
     //                                                                          ==========
-    public void buyOneDayPassport(int handedMoney) {
+    public OneDayTicket buyOneDayPassport(int handedMoney) {
         // TODO hakiba 修行++: はちゃめちゃでもいいから、この4行をbuyTwoDayPassport()と再利用してみよう by jflute (2019/10/03)
         checkSoldOut(quantity);
         checkSufficient(handedMoney, ONE_DAY_PRICE);
         --quantity;
         recordSalesProceeds(ONE_DAY_PRICE);
+        return new OneDayTicket(TicketType.ONE_DAY, ONE_DAY_PRICE);
     }
 
-    public int buyTwoDayPassport(int handedMoney) {
+    public TicketBuyResult buyTwoDayPassport(int handedMoney) {
         checkSoldOut(twoDayQuantity);
         checkSufficient(handedMoney, TWO_DAY_PRICE);
         --twoDayQuantity;
         recordSalesProceeds(TWO_DAY_PRICE);
-        return handedMoney - TWO_DAY_PRICE;
+        return new TicketBuyResult(new MultipleDaysTicket(TicketType.TWO_DAY, 2, TWO_DAY_PRICE), handedMoney - TWO_DAY_PRICE);
     }
 
     private void checkSoldOut(int quantity) {

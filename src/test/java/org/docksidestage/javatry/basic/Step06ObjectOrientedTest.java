@@ -15,7 +15,7 @@
  */
 package org.docksidestage.javatry.basic;
 
-import org.docksidestage.bizfw.basic.buyticket.Ticket;
+import org.docksidestage.bizfw.basic.buyticket.OneDayTicket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.objanimal.Animal;
 import org.docksidestage.bizfw.basic.objanimal.BarkedSound;
@@ -32,7 +32,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author hakiba
  */
 public class Step06ObjectOrientedTest extends PlainTestCase {
 
@@ -133,7 +133,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // _/_/_/_/_/_/_/_/_/_/
         //Ticket ticket = booth.buyOneDayPassport(10000);
         booth.buyOneDayPassport(10000); // as temporary, remove if you finished steo05
-        Ticket ticket = new Ticket(7400); // also here
+        OneDayTicket ticket = new OneDayTicket(7400); // also here
 
         // *buyOneDayPassport() has this process:
         //if (quantity <= 0) {
@@ -170,7 +170,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         saveBuyingHistory(booth, ticket);
     }
 
-    private void saveBuyingHistory(TicketBooth booth, Ticket ticket) {
+    private void saveBuyingHistory(TicketBooth booth, OneDayTicket ticket) {
         if (ticket.isAlreadyIn()) {
             // only logging here (normally e.g. DB insert)
             doShowTicketBooth(booth);
@@ -182,7 +182,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         log("Ticket Booth: quantity={}, salesProceeds={}", booth.getQuantity(), booth.getSalesProceeds());
     }
 
-    private void doShowYourTicket(Ticket ticket) {
+    private void doShowYourTicket(OneDayTicket ticket) {
         log("Your Ticket: displayPrice={}, alreadyIn={}", ticket.getDisplayPrice(), ticket.isAlreadyIn());
     }
 
