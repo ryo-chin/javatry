@@ -18,13 +18,14 @@ package org.docksidestage.bizfw.basic.buyticket;
 // TODO hakiba javadocよろしく by jflute (2019/10/03)
 /**
  * @author jflute
+ * @author hakiba
  */
 public class TicketBooth {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    private static final int MAX_QUANTITY = 10;
+    private static final int ONE_DAY_MAX_QUANTITY = 10;
     private static final int TWO_DAY_MAX_QUANTITY = 10;
     private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
     private static final int TWO_DAY_PRICE = 13200;
@@ -32,8 +33,9 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO hakiba これ、oneDayの方をquantityのままにするのが迷いどころじゃない？ by jflute (2019/10/03)
-    private int quantity = MAX_QUANTITY;
+    // TODO done hakiba これ、oneDayの方をquantityのままにするのが迷いどころじゃない？ by jflute (2019/10/03)
+    // 別々のQuantityとして管理しようかなと思っているので一旦変数名を変えます。 by hakiba
+    private int oneDayQuantity = ONE_DAY_MAX_QUANTITY;
     private int twoDayQuantity = TWO_DAY_MAX_QUANTITY;
     private Integer salesProceeds;
 
@@ -48,9 +50,9 @@ public class TicketBooth {
     //                                                                          ==========
     public OneDayTicket buyOneDayPassport(int handedMoney) {
         // TODO hakiba 修行++: はちゃめちゃでもいいから、この4行をbuyTwoDayPassport()と再利用してみよう by jflute (2019/10/03)
-        checkSoldOut(quantity);
+        checkSoldOut(oneDayQuantity);
         checkSufficient(handedMoney, ONE_DAY_PRICE);
-        --quantity;
+        --oneDayQuantity;
         recordSalesProceeds(ONE_DAY_PRICE);
         return new OneDayTicket(TicketType.ONE_DAY, ONE_DAY_PRICE);
     }
@@ -104,8 +106,8 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    public int getQuantity() {
-        return quantity;
+    public int getOneDayQuantity() {
+        return oneDayQuantity;
     }
 
     public int getTwoDayQuantity() {

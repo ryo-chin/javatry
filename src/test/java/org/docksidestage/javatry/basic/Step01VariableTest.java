@@ -19,13 +19,13 @@ import java.math.BigDecimal;
 
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO hakiba authorよろしくね by jflute (2019/10/03)
+// TODO done hakiba authorよろしくね by jflute (2019/10/03)
 /**
  * The test of variable. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author hakiba
  */
 public class Step01VariableTest extends PlainTestCase {
 
