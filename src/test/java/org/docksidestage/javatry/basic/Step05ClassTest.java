@@ -198,7 +198,7 @@ public class Step05ClassTest extends PlainTestCase {
             log("you can't enter park", e);
         }
 
-        MultipleDaysTicket twoDaysPassport = (MultipleDaysTicket)booth.buyTwoDayPassport(14000).getTicket();
+        MultipleDaysTicket twoDaysPassport = (MultipleDaysTicket) booth.buyTwoDayPassport(14000).getTicket();
         try {
             twoDaysPassport.doInPark();
             twoDaysPassport.doInPark();
@@ -214,6 +214,19 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder() {
         // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        MultipleDaysTicket ticket = (MultipleDaysTicket) booth.buyFourDayPassport(23000).getTicket();
+        log(ticket.getUsableDays());
+        log(ticket.getDisplayPrice());
+        try {
+            ticket.doInPark();
+            ticket.doInPark();
+            ticket.doInPark();
+            ticket.doInPark();
+            ticket.doInPark(); // throw Exception
+        } catch (IllegalStateException e) {
+            log("you can't enter park", e);
+        }
     }
 
     /**

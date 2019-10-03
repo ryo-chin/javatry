@@ -36,6 +36,7 @@ public class TicketBooth {
     //                                                                          ==========
     private static final int ONE_DAY_MAX_QUANTITY = 10;
     private static final int TWO_DAY_MAX_QUANTITY = 10;
+    private static final int FOUR_DAY_MAX_QUANTITY = 10;
 
     // ===================================================================================
     //                                                                           Attribute
@@ -51,6 +52,7 @@ public class TicketBooth {
     public TicketBooth() {
         ticketStockHolder.put(TicketType.ONE_DAY, ONE_DAY_MAX_QUANTITY);
         ticketStockHolder.put(TicketType.TWO_DAY, TWO_DAY_MAX_QUANTITY);
+        ticketStockHolder.put(TicketType.FOUR_DAY, FOUR_DAY_MAX_QUANTITY);
     }
 
     // ===================================================================================
@@ -63,6 +65,11 @@ public class TicketBooth {
 
     public TicketBuyResult buyTwoDayPassport(int handedMoney) {
         TicketType ticketType = TicketType.TWO_DAY;
+        return new TicketBuyResult(new MultipleDaysTicket(ticketType), buyPassport(ticketType, handedMoney));
+    }
+
+    public TicketBuyResult buyFourDayPassport(int handedMoney) {
+        TicketType ticketType = TicketType.FOUR_DAY;
         return new TicketBuyResult(new MultipleDaysTicket(ticketType), buyPassport(ticketType, handedMoney));
     }
 

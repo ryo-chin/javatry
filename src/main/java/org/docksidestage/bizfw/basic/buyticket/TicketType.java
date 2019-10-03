@@ -5,7 +5,8 @@ package org.docksidestage.bizfw.basic.buyticket;
  */
 public enum TicketType {
     ONE_DAY(7400, 1),
-    TWO_DAY(13200, 2);
+    TWO_DAY(13200, 2),
+    FOUR_DAY(23000, 4);
 
     // ===================================================================================
     //                                                                         Constructor
