@@ -27,6 +27,12 @@ import org.docksidestage.bizfw.basic.objanimal.fly.Flyable;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
+import org.docksidestage.javatry.basic.st6.dbms.AbstractSql;
+import org.docksidestage.javatry.basic.st6.dbms.St6MySql;
+import org.docksidestage.javatry.basic.st6.dbms.St6PostgreSql;
+import org.docksidestage.javatry.basic.st6.os.St6MacOS;
+import org.docksidestage.javatry.basic.st6.os.St6OldWindowsOS;
+import org.docksidestage.javatry.basic.st6.os.St6WindowsOS;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -344,6 +350,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_generalization_extractToAbstract() {
         // your confirmation code here
+        St6MySql st6MySql = new St6MySql();
+        boolean sea = st6MySql instanceof AbstractSql;
+        log(sea);
+        St6PostgreSql st6PostgreSql = new St6PostgreSql();
+        boolean land = st6PostgreSql instanceof AbstractSql;
+        log(land);
     }
 
     /**
@@ -352,6 +364,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_specialization_extractToConcrete() {
         // your confirmation code here
+        String loginId = "hakiba";
+        St6MacOS macOS = new St6MacOS(loginId);
+        log(macOS.buildUserResourcePath("works"));
+        St6WindowsOS windowsOS = new St6WindowsOS(loginId);
+        log(windowsOS.buildUserResourcePath("works"));
+        St6OldWindowsOS oldWindowsOS = new St6OldWindowsOS(loginId);
+        log(oldWindowsOS.buildUserResourcePath("works"));
+
     }
 
     // ===================================================================================
