@@ -18,7 +18,7 @@ package org.docksidestage.bizfw.basic.buyticket;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO done hakiba javadocよろしく by jflute (2019/10/03)
+// done hakiba javadocよろしく by jflute (2019/10/03)
 /**
  * チケット売り場
  * <pre>
@@ -59,7 +59,10 @@ public class TicketBooth {
     //                                                                          Buy Ticket
     //                                                                          ==========
     public TicketBuyResult buyOneDayPassport(int handedMoney) {
-        // TODO done hakiba 修行++: はちゃめちゃでもいいから、この4行をbuyTwoDayPassport()と再利用してみよう by jflute (2019/10/03)
+        // done hakiba 修行++: はちゃめちゃでもいいから、この4行をbuyTwoDayPassport()と再利用してみよう by jflute (2019/10/03)
+        // TODO hakiba [いいね]おお、めっちゃがんばったね。そして良いと思う by jflute (2019/10/04)
+        // 自分がイメージしてたのは、コールバック引数でインスタンス変数の操作を渡すとかだったけど、Holderの方が丁寧だね。
+        // (さらに時間があれば、TicketStockHolderクラスを作ったりするのだろう)
         return new TicketBuyResult(new OneDayTicket(), buyPassport(TicketType.ONE_DAY, handedMoney));
     }
 
@@ -73,6 +76,9 @@ public class TicketBooth {
         return new TicketBuyResult(new MultipleDaysTicket(ticketType), buyPassport(ticketType, handedMoney));
     }
 
+    // TODO hakiba [ていあん]内部用の似た名前の処理は何かしら区別するテクニックあり。自分はよく doBuy...() とかやる by jflute (2019/10/04)
+    // 他にも世の中色々あるけど、this.buy... で補完したときにすごい紛れるので、public系のメソッドと混じらない名前にすることがよくある。
+    // (publicメソッドの方が、buyじゃなくて違う名前ならいいけど、どっちもbuyだとよく身間違えるし呼び間違えたりするし)
     private int buyPassport(TicketType ticketType, int handedMoney) {
         Integer quantity = ticketStockHolder.get(ticketType);
         checkSoldOut(quantity);

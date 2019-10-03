@@ -200,8 +200,9 @@ public class Step02IfForTest extends PlainTestCase {
 
         // done hakiba リストにgaが含む要素が存在しないケースだと結果が変わってしまうような？ by jflute (2019/10/03)
         // COMMENT ずるい気もしますがMapなど使い対応してみました by hakiba
-        // TODO done hakiba まあ実現することがまず大事。Setでいいんじゃない？valueはダミーでしょ by jflute (2019/10/03)
+        // done hakiba まあ実現することがまず大事。Setでいいんじゃない？valueはダミーでしょ by jflute (2019/10/03)
         // COMMENT たしかにSetでいいですね.スッキリした気がします by hakiba
+        // TODO hakiba 普段なら見逃すけど研修のためのエクササイズだから...判定は !isEmpty() を使おう(意味を表現するメソッドを優先的に) by jflute (2019/10/04)
         // forEach() Version
         LinkedList<String> targetStageList = new LinkedList<>();
         Set<String> breakKeywordSet = new HashSet<>();
