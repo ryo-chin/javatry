@@ -19,6 +19,7 @@ import org.docksidestage.bizfw.basic.buyticket.OneDayTicket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.objanimal.Animal;
 import org.docksidestage.bizfw.basic.objanimal.BarkedSound;
+import org.docksidestage.bizfw.basic.objanimal.BarkingProcess;
 import org.docksidestage.bizfw.basic.objanimal.Bird;
 import org.docksidestage.bizfw.basic.objanimal.Cat;
 import org.docksidestage.bizfw.basic.objanimal.Dog;
@@ -383,11 +384,18 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_withDelegation() {
         // your confirmation code here
+        BarkedSound barkedSound = new BarkingProcess(new Dog()).execute();
+        log(barkedSound.getBarkWord());
     }
 
     /**
      * Is Zombie correct as sub-class of Animal? Analyze it in thirty seconds. (thinking only) <br>
      * (ゾンビは動物クラスのサブクラスとして適切でしょうか？30秒だけ考えてみましょう (考えるだけでOK))
+     *
+     * 考えたこと
+     * <pre>
+     * o 犬のゾンビや猫のゾンビが別のAnimalと考えるよりも「犬がゾンビ状態になった」、「猫がゾンビ状態になった」のようにステータスとして考える方が自然かもしれない
+     * </pre>
      */
     public void test_objectOriented_zoo() {
         // do nothing here
