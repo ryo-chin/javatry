@@ -7,29 +7,29 @@ public class MultipleDaysTicket implements Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    private final int displayPrice;
     private final TicketType type;
-    private final int usableDays;
     private int usedDays = 0;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MultipleDaysTicket(TicketType type, int usableDays, int displayPrice) {
+    public MultipleDaysTicket(TicketType type) {
         this.type = type;
-        this.usableDays = usableDays;
-        this.displayPrice = displayPrice;
     }
-
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
+
     @Override
     public void doInPark() {
-        if (isAlreadyOverLimit()) {
-            throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + displayPrice);
+        if (isAlreadyUsedUntilUsableDays()) {
+            throw new IllegalStateException(String.format("Already used until usable days : usableDays=%s, usedDays=%s", getUsableDays(), getUsedDays()));
         }
         ++usedDays;
+    }
+
+    private boolean isAlreadyUsedUntilUsableDays() {
+        return type.getUsableDays() <= usedDays;
     }
 
     // ===================================================================================
@@ -37,11 +37,15 @@ public class MultipleDaysTicket implements Ticket {
     //                                                                            ========
     @Override
     public int getDisplayPrice() {
-        return displayPrice;
+        return type.getPrice();
     }
 
-    public boolean isAlreadyOverLimit() {
-        return usableDays <= usedDays;
+    public int getUsableDays() {
+        return type.getUsableDays();
+    }
+
+    public int getUsedDays() {
+        return usedDays;
     }
 
     public TicketType getType() {

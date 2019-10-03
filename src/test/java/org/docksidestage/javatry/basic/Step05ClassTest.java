@@ -134,7 +134,7 @@ public class Step05ClassTest extends PlainTestCase {
     public void test_class_moreFix_return_ticket() {
         // comment out after modifying the method
         TicketBooth booth = new TicketBooth();
-        OneDayTicket oneDayPassport = booth.buyOneDayPassport(10000);
+        OneDayTicket oneDayPassport = (OneDayTicket) booth.buyOneDayPassport(10000).getTicket();
         log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
         log(oneDayPassport.isAlreadyIn()); // should be false
         oneDayPassport.doInPark();
@@ -162,7 +162,7 @@ public class Step05ClassTest extends PlainTestCase {
     public void test_class_moreFix_type() {
         // your confirmation code here
         TicketBooth booth = new TicketBooth();
-        OneDayTicket oneDayPassport = booth.buyOneDayPassport(10000);
+        OneDayTicket oneDayPassport = (OneDayTicket) booth.buyOneDayPassport(10000).getTicket();
         MultipleDaysTicket twoDayPassport = (MultipleDaysTicket) booth.buyTwoDayPassport(20000).getTicket();
         log("OneDayPassport type: " + oneDayPassport.getType());
         log("TwoDayPassport type: " + twoDayPassport.getType());
@@ -190,12 +190,12 @@ public class Step05ClassTest extends PlainTestCase {
     public void test_class_moreFix_useInterface() {
         // your confirmation code here
         TicketBooth booth = new TicketBooth();
-        OneDayTicket oneDayPassport = booth.buyOneDayPassport(10000);
+        OneDayTicket oneDayPassport = (OneDayTicket) booth.buyOneDayPassport(10000).getTicket();
         try {
             oneDayPassport.doInPark();
             oneDayPassport.doInPark(); // throw Exception
         } catch (IllegalStateException e) {
-            log("you can't do in park", e);
+            log("you can't enter park", e);
         }
 
         MultipleDaysTicket twoDaysPassport = (MultipleDaysTicket)booth.buyTwoDayPassport(14000).getTicket();
@@ -204,7 +204,7 @@ public class Step05ClassTest extends PlainTestCase {
             twoDaysPassport.doInPark();
             twoDaysPassport.doInPark(); // throw Exception
         } catch (IllegalStateException e) {
-            log("you can't do in park", e);
+            log("you can't enter park", e);
         }
     }
 

@@ -15,8 +15,17 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-// TODO hakiba javadocよろしく by jflute (2019/10/03)
+import java.util.HashMap;
+import java.util.Map;
+
+// TODO done hakiba javadocよろしく by jflute (2019/10/03)
 /**
+ * チケット売り場
+ * <pre>
+ * o チケット種別ごとに在庫を保持している
+ * o 各種チケット在庫や売り上げはチケット売り場それぞれで保有している
+ * <pre>
+ *
  * @author jflute
  * @author hakiba
  */
@@ -27,42 +36,43 @@ public class TicketBooth {
     //                                                                          ==========
     private static final int ONE_DAY_MAX_QUANTITY = 10;
     private static final int TWO_DAY_MAX_QUANTITY = 10;
-    private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
-    private static final int TWO_DAY_PRICE = 13200;
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
     // done hakiba これ、oneDayの方をquantityのままにするのが迷いどころじゃない？ by jflute (2019/10/03)
     // 別々のQuantityとして管理しようかなと思っているので一旦変数名を変えます。 by hakiba
-    private int oneDayQuantity = ONE_DAY_MAX_QUANTITY;
-    private int twoDayQuantity = TWO_DAY_MAX_QUANTITY;
+    private Map<TicketType, Integer> ticketStockHolder = new HashMap<>();
     private Integer salesProceeds;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
     public TicketBooth() {
+        ticketStockHolder.put(TicketType.ONE_DAY, ONE_DAY_MAX_QUANTITY);
+        ticketStockHolder.put(TicketType.TWO_DAY, TWO_DAY_MAX_QUANTITY);
     }
 
     // ===================================================================================
     //                                                                          Buy Ticket
     //                                                                          ==========
-    public OneDayTicket buyOneDayPassport(int handedMoney) {
-        // TODO hakiba 修行++: はちゃめちゃでもいいから、この4行をbuyTwoDayPassport()と再利用してみよう by jflute (2019/10/03)
-        checkSoldOut(oneDayQuantity);
-        checkSufficient(handedMoney, ONE_DAY_PRICE);
-        --oneDayQuantity;
-        recordSalesProceeds(ONE_DAY_PRICE);
-        return new OneDayTicket(TicketType.ONE_DAY, ONE_DAY_PRICE);
+    public TicketBuyResult buyOneDayPassport(int handedMoney) {
+        // TODO done hakiba 修行++: はちゃめちゃでもいいから、この4行をbuyTwoDayPassport()と再利用してみよう by jflute (2019/10/03)
+        return new TicketBuyResult(new OneDayTicket(), buyPassport(TicketType.ONE_DAY, handedMoney));
     }
 
     public TicketBuyResult buyTwoDayPassport(int handedMoney) {
-        checkSoldOut(twoDayQuantity);
-        checkSufficient(handedMoney, TWO_DAY_PRICE);
-        --twoDayQuantity;
-        recordSalesProceeds(TWO_DAY_PRICE);
-        return new TicketBuyResult(new MultipleDaysTicket(TicketType.TWO_DAY, 2, TWO_DAY_PRICE), handedMoney - TWO_DAY_PRICE);
+        TicketType ticketType = TicketType.TWO_DAY;
+        return new TicketBuyResult(new MultipleDaysTicket(ticketType), buyPassport(ticketType, handedMoney));
+    }
+
+    private int buyPassport(TicketType ticketType, int handedMoney) {
+        Integer quantity = ticketStockHolder.get(ticketType);
+        checkSoldOut(quantity);
+        checkSufficient(handedMoney, ticketType.getPrice());
+        ticketStockHolder.put(ticketType, quantity - 1);
+        recordSalesProceeds(ticketType.getPrice());
+        return handedMoney - ticketType.getPrice();
     }
 
     private void checkSoldOut(int quantity) {
@@ -71,17 +81,17 @@ public class TicketBooth {
         }
     }
 
-    private void checkSufficient(int handedMoney, int twoDayPrice) {
-        if (handedMoney < twoDayPrice) {
+    private void checkSufficient(int handedMoney, int price) {
+        if (handedMoney < price) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
     }
 
-    private void recordSalesProceeds(int oneDayPrice) {
+    private void recordSalesProceeds(int price) {
         if (salesProceeds != null) {
-            salesProceeds = salesProceeds + oneDayPrice;
+            salesProceeds = salesProceeds + price;
         } else {
-            salesProceeds = oneDayPrice;
+            salesProceeds = price;
         }
     }
 
@@ -107,11 +117,11 @@ public class TicketBooth {
     //                                                                            Accessor
     //                                                                            ========
     public int getOneDayQuantity() {
-        return oneDayQuantity;
+        return ticketStockHolder.get(TicketType.ONE_DAY);
     }
 
     public int getTwoDayQuantity() {
-        return twoDayQuantity;
+        return ticketStockHolder.get(TicketType.TWO_DAY);
     }
 
     public Integer getSalesProceeds() {
