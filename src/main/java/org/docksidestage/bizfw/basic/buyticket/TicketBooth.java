@@ -24,12 +24,15 @@ public class TicketBooth {
     //                                                                          Definition
     //                                                                          ==========
     private static final int MAX_QUANTITY = 10;
+    private static final int TWO_DAY_MAX_QUANTITY = 10;
     private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
+    private static final int TWO_DAY_PRICE = 13200;
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
     private int quantity = MAX_QUANTITY;
+    private int twoDayQuantity = TWO_DAY_MAX_QUANTITY;
     private Integer salesProceeds;
 
     // ===================================================================================
@@ -42,17 +45,37 @@ public class TicketBooth {
     //                                                                          Buy Ticket
     //                                                                          ==========
     public void buyOneDayPassport(int handedMoney) {
+        checkSoldOut(quantity);
+        checkSufficient(handedMoney, ONE_DAY_PRICE);
+        --quantity;
+        recordSalesProceeds(ONE_DAY_PRICE);
+    }
+
+    public int buyTwoDayPassport(int handedMoney) {
+        checkSoldOut(twoDayQuantity);
+        checkSufficient(handedMoney, TWO_DAY_PRICE);
+        --twoDayQuantity;
+        recordSalesProceeds(TWO_DAY_PRICE);
+        return handedMoney - TWO_DAY_PRICE;
+    }
+
+    private void checkSoldOut(int quantity) {
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
-        --quantity;
-        if (handedMoney < ONE_DAY_PRICE) {
+    }
+
+    private void checkSufficient(int handedMoney, int twoDayPrice) {
+        if (handedMoney < twoDayPrice) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
+    }
+
+    private void recordSalesProceeds(int oneDayPrice) {
         if (salesProceeds != null) {
-            salesProceeds = salesProceeds + handedMoney;
+            salesProceeds = salesProceeds + oneDayPrice;
         } else {
-            salesProceeds = handedMoney;
+            salesProceeds = oneDayPrice;
         }
     }
 
@@ -79,6 +102,10 @@ public class TicketBooth {
     //                                                                            ========
     public int getQuantity() {
         return quantity;
+    }
+
+    public int getTwoDayQuantity() {
+        return twoDayQuantity;
     }
 
     public Integer getSalesProceeds() {
