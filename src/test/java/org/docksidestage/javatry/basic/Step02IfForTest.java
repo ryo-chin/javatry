@@ -15,10 +15,10 @@
  */
 package org.docksidestage.javatry.basic;
 
+import org.docksidestage.unit.PlainTestCase;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.docksidestage.unit.PlainTestCase;
 
 /**
  * The test of if-for. <br>
@@ -52,7 +52,7 @@ public class Step02IfForTest extends PlainTestCase {
         } else {
             sea = 7;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -67,7 +67,7 @@ public class Step02IfForTest extends PlainTestCase {
         } else {
             sea = 9;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -91,7 +91,7 @@ public class Step02IfForTest extends PlainTestCase {
         if (land) {
             sea = 10;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 10
     }
 
     // ===================================================================================
@@ -107,7 +107,7 @@ public class Step02IfForTest extends PlainTestCase {
                 sea = stage;
             }
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => dockside
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -117,7 +117,7 @@ public class Step02IfForTest extends PlainTestCase {
         for (String stage : stageList) {
             sea = stage;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => magiclamp
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -133,7 +133,7 @@ public class Step02IfForTest extends PlainTestCase {
                 break;
             }
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => hangar
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -149,7 +149,7 @@ public class Step02IfForTest extends PlainTestCase {
             }
         });
         String sea = sb.toString();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => dockside
     }
 
     // ===================================================================================
@@ -161,6 +161,17 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_making() {
         // write if-for here
+        List<String> stageList = prepareStageList();
+        List<String> targetStageList = new ArrayList<>();
+        stageList.forEach(stage -> {
+            if (stage.contains("a")) {
+                targetStageList.add(stage);
+            }
+        });
+        targetStageList.forEach(stage -> log(stage));
+
+        // Stream Version
+        stageList.stream().filter(stage -> stage.contains("a")).forEach(stage -> log(stage));
     }
 
     // ===================================================================================
@@ -183,6 +194,18 @@ public class Step02IfForTest extends PlainTestCase {
             }
         }
         log(sea); // should be same as before-fix
+
+        // forEach() Version
+        StringBuilder sb = new StringBuilder();
+        stageList.forEach(stage -> {
+            if (stage.startsWith("br")) {
+                return;
+            }
+            if (stage.contains("ga") && sb.length() == 0) {
+                sb.append(stage);
+            }
+        });
+        log(sb.toString());
     }
 
     /**
