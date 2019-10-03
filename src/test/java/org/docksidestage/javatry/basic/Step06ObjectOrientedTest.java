@@ -65,12 +65,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
             throw new IllegalStateException("Short money: handedMoney=" + handedMoney);
         }
         --quantity;
-        salesProceeds = handedMoney;
+        salesProceeds = oneDayPrice;
 
         //
         // [ticket info]
         //
-        int displayPrice = quantity;
+        int displayPrice = oneDayPrice;
         boolean alreadyIn = false;
 
         // other processes here...
@@ -94,8 +94,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
         if (alreadyIn) {
             // only logging here (normally e.g. DB insert)
-            showTicketBooth(displayPrice, salesProceeds);
-            showYourTicket(quantity, alreadyIn);
+            showTicketBooth(quantity, salesProceeds);
+            showYourTicket(displayPrice, alreadyIn);
         }
     }
 
@@ -113,6 +113,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     /**
      * Read (analyze) this code and compare with the previous test method, and think "what is object?". <br>
      * (このコードを読んで(分析して)、一つ前のテストメソッドと比べて、「オブジェクトとは何か？」を考えてみましょう)
+     *
+     * 前後比較から「オブジェクトとは...?」 by hakiba
+     * <pre>
+     * o primitiveなパラメータ群がまとまり、それ単体で概念を示しているもの
+     * o メソッドなどを通じて明確な責務を果たすことができるもの
+     * </pre>
      */
     public void test_objectOriented_aboutObject_usingObject() {
         //
@@ -129,11 +135,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // [buy one-day passport]
         //
         // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
-        // #fixme you if step05 has been finished, you can use this code by jflute (2019/06/15)
+        // #done you if step05 has been finished, you can use this code by jflute (2019/06/15)
         // _/_/_/_/_/_/_/_/_/_/
-        //Ticket ticket = booth.buyOneDayPassport(10000);
-        booth.buyOneDayPassport(10000); // as temporary, remove if you finished steo05
-        OneDayTicket ticket = new OneDayTicket(); // also here
+        OneDayTicket ticket = (OneDayTicket) booth.buyOneDayPassport(10000).getTicket();
+        // booth.buyOneDayPassport(10000); // as temporary, remove if you finished steo05
+        // OneDayTicket ticket = new OneDayTicket(); // also here
 
         // *buyOneDayPassport() has this process:
         //if (quantity <= 0) {
