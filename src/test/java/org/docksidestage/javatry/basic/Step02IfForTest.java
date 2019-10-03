@@ -18,10 +18,10 @@ package org.docksidestage.javatry.basic;
 import org.docksidestage.unit.PlainTestCase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 /**
  * The test of if-for. <br>
@@ -200,18 +200,18 @@ public class Step02IfForTest extends PlainTestCase {
 
         // done hakiba リストにgaが含む要素が存在しないケースだと結果が変わってしまうような？ by jflute (2019/10/03)
         // COMMENT ずるい気もしますがMapなど使い対応してみました by hakiba
-        // TODO hakiba まあ実現することがまず大事。Setでいいんじゃない？valueはダミーでしょ by jflute (2019/10/03)
+        // TODO done hakiba まあ実現することがまず大事。Setでいいんじゃない？valueはダミーでしょ by jflute (2019/10/03)
+        // COMMENT たしかにSetでいいですね.スッキリした気がします by hakiba
         // forEach() Version
         LinkedList<String> targetStageList = new LinkedList<>();
-        String breakKeyword = "ga";
-        Map<String, String> breakKeywordAndStageMap = new HashMap<>();
+        Set<String> breakKeywordSet = new HashSet<>();
         stageList.forEach(stage -> {
-            if (stage.startsWith("br") || breakKeywordAndStageMap.get(breakKeyword) != null) {
+            if (stage.startsWith("br") || breakKeywordSet.size() > 0) {
                 return;
             }
             targetStageList.add(stage);
-            if (stage.contains(breakKeyword)) {
-                breakKeywordAndStageMap.put(breakKeyword, stage);
+            if (stage.contains("ga")) {
+                breakKeywordSet.add(stage);
             }
         });
         log(targetStageList.getLast());
