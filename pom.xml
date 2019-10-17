@@ -25,6 +25,8 @@
 
 		<!-- Testing -->
 		<junit.version>4.8.2</junit.version> <!-- is latest version without hamcrest -->
+
+		<kotlin.version>1.1.2-5</kotlin.version>
 	</properties>
 
 	<licenses>
@@ -54,6 +56,32 @@
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.8.0</version>
+					<executions>
+					    <!-- Replacing default-compile as it is treated specially by maven -->
+					    <execution>
+					        <id>default-compile</id>
+					        <phase>none</phase>
+					    </execution>
+					    <!-- Replacing default-testCompile as it is treated specially by maven -->
+					    <execution>
+					        <id>default-testCompile</id>
+					        <phase>none</phase>
+					    </execution>
+					    <execution>
+					        <id>compile</id>
+					        <phase>compile</phase>
+					        <goals>
+					            <goal>compile</goal>
+					        </goals>
+					    </execution>
+					    <execution>
+					        <id>testCompile</id>
+					        <phase>test-compile</phase>
+					        <goals>
+					            <goal>testCompile</goal>
+					        </goals>
+					    </execution>
+					</executions>
 					<configuration>
 						<source>1.8</source>
 						<target>1.8</target>
@@ -200,6 +228,28 @@
 					</archive>
 				</configuration>
 			</plugin>
+			<!-- Kotlin -->
+			<plugin>
+			    <groupId>org.jetbrains.kotlin</groupId>
+			    <artifactId>kotlin-maven-plugin</artifactId>
+			    <version>${kotlin.version}</version>
+			    <executions>
+			        <execution>
+			            <id>compile</id>
+			            <phase>compile</phase>
+			            <goals>
+			                <goal>compile</goal>
+			            </goals>
+			        </execution>
+			        <execution>
+			            <id>test-compile</id>
+			            <phase>test-compile</phase>
+			            <goals>
+			                <goal>test-compile</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -272,7 +322,7 @@
 		    <artifactId>tomcat-jasper</artifactId>
 		    <version>9.0.19</version> <!-- should be same as Tomcat dependency of TomcatBoot -->
 		</dependency>
- 
+
 		<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
 		<!--                                                                       Testing -->
 		<!--                                                                       = = = = -->
@@ -282,6 +332,19 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- Kotlin -->
+		<dependency>
+		    <groupId>org.jetbrains.kotlin</groupId>
+		    <artifactId>kotlin-stdlib-jre8</artifactId>
+		    <version>${kotlin.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.jetbrains.kotlin</groupId>
+		    <artifactId>kotlin-test</artifactId>
+		    <version>${kotlin.version}</version>
+		    <scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
